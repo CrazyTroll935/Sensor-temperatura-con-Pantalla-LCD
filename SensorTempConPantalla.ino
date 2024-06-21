@@ -10,11 +10,14 @@
  float tempC;
  float tempF;
  int dt (500);
+ int rojo = 4;
+ int verde = 6;
 
 void setup() {
   Serial.begin(9600);
   HT.begin();
-
+  pinMode(rojo,OUTPUT);
+  pinMode(verde,OUTPUT);
   lcd.setBacklightPin(3, POSITIVE);
   lcd.setBacklight(HIGH);
   lcd.begin(16, 2);
@@ -35,4 +38,12 @@ void loop() {
  lcd.print(tempC);
  lcd.print(" C");
  delay(dt);
+ if(HT.readTemperature()>12){
+  digitalWrite(verde,HIGH);
+  digitalWrite(rojo,LOW);
+ }
+ if(HT.readTemperature()<=12){
+  digitalWrite(rojo,HIGH);
+  digitalWrite(verde,LOW);
+ }
 }
